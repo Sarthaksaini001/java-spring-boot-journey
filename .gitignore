@@ -46,3 +46,38 @@ target/
 
 # Logs
 *.log
+
+# macOS
+.DS_Store
+*.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Maven
+target/
+*.class
+
+# Logs
+*.log
+
+# Java compiled files
+*.class
+*.jar
+*.war
+
+# Spring Boot
+/target/
+/build/
+.gradle/
+
+# Package files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
