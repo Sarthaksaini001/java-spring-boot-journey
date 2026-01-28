@@ -1,5 +1,6 @@
 package com.sarthak.learn_spring_framework.game;
 
+// MarioGame class implementing the GamingConsole interface
 public class MarioGame implements GamingConsole {
 
     public void up(){

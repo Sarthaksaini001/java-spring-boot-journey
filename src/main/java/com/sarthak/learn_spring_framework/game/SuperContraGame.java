@@ -1,5 +1,6 @@
 package com.sarthak.learn_spring_framework.game;
 
+// SuperContraGame class implementing the GamingConsole interface
 public class SuperContraGame implements GamingConsole {
 
     public void up(){
