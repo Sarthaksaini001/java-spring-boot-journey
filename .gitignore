@@ -32,48 +32,14 @@ build/
 ### VS Code ###
 .vscode/
 
-# macOS
+### macOS ###
 .DS_Store
-*.DS_Store
 
-# IDE
-.vscode/
-.idea/
-
-# Maven
-target/
-*.class
-
-# Logs
+### Logs ###
 *.log
 
-# macOS
-.DS_Store
-*.DS_Store
-
-# IDE
-.vscode/
-.idea/
-*.iml
-
-# Maven
-target/
+### Java compiled files ###
 *.class
-
-# Logs
-*.log
-
-# Java compiled files
-*.class
-*.jar
-*.war
-
-# Spring Boot
-/target/
-/build/
-.gradle/
-
-# Package files
 *.jar
 *.war
 *.nar
@@ -81,3 +47,6 @@ target/
 *.zip
 *.tar.gz
 *.rar
+
+### Spring Boot ###
+.gradle/
