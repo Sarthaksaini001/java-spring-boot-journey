@@ -10,40 +10,41 @@ package V01;
  */
 public class Employee {
     
-    private final String employeeId;
-    private String employeeName;
-    private String employeeDepartment;
-    private double employeeBaseSalary;
+    private final String id;
+    private final String name;
+    private String department;
+    private double baseSalary;
     private int yearsOfService;
 
     // Constructor chaining for New Hires
-    public Employee(String employeeId, String employeeName, String employeeDepartment, double employeeBaseSalary){
+    public Employee(String id, String name, String department, double baseSalary){
         // Calls the constructor for current employee and sets Years of service to 0 
-        this(employeeId, employeeName, employeeDepartment, employeeBaseSalary, 0);
+        this(id, name, department, baseSalary, 0);
     }
     
     // Constructor for Current class
-    public Employee(String employeeId, String employeeName, String employeeDepartment, double employeeBaseSalary, int yearsOfService){
+    public Employee(String id, String name, String department, double baseSalary, int yearsOfService){
         
         // Business Rules for EmployeeID 
-        if (employeeId != null && employeeId.length() == 6){
-            this.employeeId = employeeId;
+        if (id != null && id.length() == 6){
+            this.id = id;
         }else{
-            this.employeeId = null; // ******** Not using Exception here as not learned yet ***********
+            this.id = null; // ******** Not using Exception here as not learned yet ***********
             System.err.println("Employee ID must be of 6 Length"); 
         }
 
         // Business Rules for Employee Name and Department 
-        if(employeeName != null && !employeeName.isEmpty() && employeeDepartment != null && !employeeDepartment.isEmpty()){
-            this.employeeName = employeeName;
-            this.employeeDepartment = employeeDepartment;
+        if(name != null && !name.isEmpty() && department != null && !department.isEmpty()){
+            this.name = name;
+            this.department = department;
         }else{
+            this.name = null;
             System.err.println("Name or Department can't be null or empty");
         }
 
         // Business Rules for Employee salary and years of service
-        if(employeeBaseSalary >0 && yearsOfService >=0){        
-        this.employeeBaseSalary = employeeBaseSalary;
+        if(baseSalary >0 && yearsOfService >=0){        
+        this.baseSalary = baseSalary;
         this.yearsOfService = yearsOfService;
         }else{
             System.err.println("Salary or Year of service entered incorrectly");
@@ -54,25 +55,25 @@ public class Employee {
     // Method for calculating gross monthly pay
     public double getGrossMonthlyPay() {
         double bonusPercentage = Math.min(yearsOfService*0.02, 0.20);
-        double annualSalary = employeeBaseSalary * (1+bonusPercentage);
+        double annualSalary = baseSalary * (1+bonusPercentage);
         return annualSalary/12;
     }
 
     // Getters for all 
-    public String getEmployeeId(){
-        return employeeId;
+    public String getId(){
+        return id;
     }
 
-    public String getEmployeeName(){
-        return employeeName;
+    public String getName(){
+        return name;
     }
 
-    public String getEmployeeDepartment(){
-        return employeeDepartment;
+    public String getDepartment(){
+        return department;
     }
 
-    public double getEmployeeBaseSalary(){
-        return employeeBaseSalary;
+    public double getBaseSalary(){
+        return baseSalary;
     }
 
     public int getYearsOfService(){
@@ -81,25 +82,21 @@ public class Employee {
 
     // Business Rules for Allow updating department (promotions/transfers) ||| Allow incrementing years of service (annual review)
     // Allow salary updates (raises, promotions)
-    public void setEmployeeDepartment(String employeeDepartment){
-        if (employeeDepartment != null && !employeeDepartment.isEmpty()) {
-        this.employeeDepartment = employeeDepartment;
+    public void setDepartment(String department){
+        if (department != null && !department.isEmpty()) {
+        this.department = department;
         } else {
         System.err.println("Department cannot be null or empty");
         }
     }
 
-    public void setYearsOfService(int yearsOfService){
-        if (yearsOfService >= 0) {
-        this.yearsOfService = yearsOfService;
-        } else {
-        System.err.println("Years of service cannot be negative");
-        }
+    public void incrementYearsOfService(){
+        this.yearsOfService++;
     }
 
-    public void setEmployeeBaseSalary(double employeeBaseSalary){
-        if (employeeBaseSalary > 0) {
-            this.employeeBaseSalary = employeeBaseSalary;
+    public void setBaseSalary(double baseSalary){
+        if (baseSalary > 0) {
+            this.baseSalary = baseSalary;
         } else {
             System.err.println("Salary must be positive");
         }
@@ -112,10 +109,10 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "ID='" + employeeId + '\'' +
-                ", Name='" + employeeName + '\'' +
-                ", Department='" + employeeDepartment + '\'' +
-                ", Base Salary=$" + String.format("%.2f", employeeBaseSalary) +
+                "ID='" + id + '\'' +
+                ", Name='" + name + '\'' +
+                ", Department='" + department + '\'' +
+                ", Base Salary=$" + String.format("%.2f", baseSalary) +
                 ", Years of Service=" + yearsOfService +
                 ", Gross Monthly Pay=$" + String.format("%.2f", getGrossMonthlyPay()) +
                 '}';
