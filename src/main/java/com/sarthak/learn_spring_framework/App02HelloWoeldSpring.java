@@ -1,5 +1,7 @@
 package com.sarthak.learn_spring_framework;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /** 
@@ -32,6 +34,8 @@ public class App02HelloWoeldSpring {
     System.out.println(context.getBean("address"));
     System.out.println(context.getBean("person2MethodCall"));
     System.out.println(context.getBean("person3Parameters"));
+    // Print all the bean names managed by spring context
+    Arrays.stream(context.getBeanDefinitionNames()).forEach(System.out::println);
  
     }
 

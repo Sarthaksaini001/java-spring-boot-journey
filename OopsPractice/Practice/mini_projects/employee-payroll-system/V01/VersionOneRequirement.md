@@ -8,7 +8,7 @@ Begin at Level 1: Object State and Behavior. Provide a challenge that tests my u
 
 
 
-# Claude Rquirement given for Version 1.0
+# Claude Rquirement given for Version 1.0 :-
 # Java OOP Mastery: Level-Up Curriculum
 
 I'm excited to guide you through this journey! Your systematic approach and C++ background will serve you well as we build increasingly sophisticated Java systems.

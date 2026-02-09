@@ -56,6 +56,6 @@ public class HelloWorldConfiguration {
     @Bean
     public Person person3Parameters(String name, int age) {
         return new Person(name, age);
-    }
+    } 
 
 }
