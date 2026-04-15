@@ -40,14 +40,14 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct( @RequestBody Product product, @PathVariable Long id){
-        return productService.updateProduct(product, id);
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product product){
+        return productService.updateProduct(id, product);
     }
 
     @DeleteMapping("/{id}")
     public String deleteProduct(@PathVariable Long id){
-        boolean isDeleted =  productService.deleteProduct(id);
-        return isDeleted ? " Yeahhhhh Deleted sucessfully " : " It doesn't exist what are you trying to find !!!!!!";
+        productService.deleteProduct(id);
+        return " Yeahhhhh Deleted sucessfully ";
     }
 
 

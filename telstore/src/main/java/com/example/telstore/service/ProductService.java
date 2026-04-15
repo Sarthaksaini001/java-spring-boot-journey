@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.telstore.exception.ProductNotFoundException;
 import com.example.telstore.model.Product;
 import com.example.telstore.repository.ProductRepository;
 
@@ -21,16 +22,15 @@ public class ProductService {
     }
 
     public Product getProductById(Long id){
-        return productRepository.findById(id).orElse(null);
+        return productRepository.findById(id).orElseThrow( () -> new ProductNotFoundException(id));
     }
 
     public Product createProduct(Product product){
         return productRepository.save(product);
     }
 
-    public Product updateProduct( Product updatedProduct, Long Id){
-        Product existingProduct = getProductById(Id);
-        if (existingProduct != null) {
+    public Product updateProduct(Long id,Product updatedProduct){
+        Product existingProduct = getProductById(id);
             existingProduct.setName(updatedProduct.getName());
             existingProduct.setBrand(updatedProduct.getBrand());
             existingProduct.setDescription(updatedProduct.getDescription());
@@ -40,16 +40,11 @@ public class ProductService {
             existingProduct.setStockQuantity(updatedProduct.getStockQuantity());
 
             return productRepository.save(existingProduct);
-        }
-        return null;
     }
 
-    public boolean deleteProduct(Long id){
-        if (productRepository.existsById(id)){
-            productRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public void deleteProduct(Long id){
+         Product existingProduct = getProductById(id);
+         productRepository.delete(existingProduct);
     }
 
 }
