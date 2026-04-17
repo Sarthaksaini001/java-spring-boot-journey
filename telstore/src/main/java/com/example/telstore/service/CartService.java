@@ -62,7 +62,22 @@ public class CartService {
         if (planId != null) {
             plan = planRepository.findById(planId).orElseThrow(() -> new PlanNotFoundException(planId));
         }
+        
+        final Product selectedProduct = product;
 
+        CartItem existingItem = null;
+        // It will only merge if it is product only 
+        if (product != null && plan == null){
+            existingItem = cart.getItems().stream()
+            .filter( item -> item.getPlan() == null && isSameProduct(item.getProduct(), selectedProduct))
+            .findFirst()
+            .orElse(null);
+        }
+
+        if (existingItem != null){
+            existingItem.setQuantity(existingItem.getQuantity() + quantity );
+        }else{
+        // Creating new Cart 
         CartItem cartItem = new CartItem();
         cartItem.setCart(cart);
         cartItem.setProduct(product);
@@ -70,22 +85,33 @@ public class CartService {
         cartItem.setQuantity(quantity);
 
         cart.getItems().add(cartItem);
-
+        }
         return cartRepository.save(cart);
     }
 
-public Cart removeItemFromCart(Long cartId, Long cartItemId) {
+    public Cart removeItemFromCart(Long cartId, Long cartItemId) {
 
-    Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new CartNotFoundException(cartId));
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new CartNotFoundException(cartId));
 
-    CartItem itemToRemove = cart.getItems()
-            .stream()
-            .filter(item -> item.getId().equals(cartItemId))
-            .findFirst()
-            .orElseThrow(() -> new CartItemNotFoundException(cartItemId));
+        CartItem itemToRemove = cart.getItems()
+                .stream()
+                .filter(item -> item.getId().equals(cartItemId))
+                .findFirst()
+                .orElseThrow(() -> new CartItemNotFoundException(cartItemId));
 
-    cart.getItems().remove(itemToRemove);
+        cart.getItems().remove(itemToRemove);
 
-    return cartRepository.save(cart);
-}
+        return cartRepository.save(cart);
+    }
+    // Helper method
+    private boolean isSameProduct(Product existingProduct, Product newProduct) {
+            if (existingProduct == null && newProduct == null) {
+                return true;
+            }
+            if (existingProduct == null || newProduct == null) {
+                return false;
+            }
+            return existingProduct.getId().equals(newProduct.getId());
+        }
+
 }
