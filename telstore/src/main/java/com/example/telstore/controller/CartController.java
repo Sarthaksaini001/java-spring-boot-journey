@@ -1,5 +1,7 @@
 package com.example.telstore.controller;
 
+import java.math.BigDecimal;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,4 +48,10 @@ public class CartController {
     public Cart removeItemFromCart(@PathVariable Long cartId, @PathVariable Long cartItemId) {
         return cartService.removeItemFromCart(cartId, cartItemId);
     }
+
+    @GetMapping("/{cartId}/total")
+    public BigDecimal getCartTotal(@PathVariable Long cartId) {
+        return cartService.calculateCartTotal(cartId);
+    }
+    
 }

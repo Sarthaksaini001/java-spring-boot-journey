@@ -58,6 +58,8 @@ async function loadCart() {
 
         html += `</div>`;
         cartItemsContainer.innerHTML = html;
+        loadCartTotal(cartId);
+        
     } catch (error) {
         console.error(error);
         cartItemsContainer.innerHTML = `<p class="text-danger">Failed to load cart.</p>`;
@@ -83,6 +85,17 @@ async function removeItem(cartItemId) {
     } catch (error) {
         console.error(error);
         alert("Error removing item.");
+    }
+}
+
+async function loadCartTotal(cartId) {
+    try {
+        const response = await fetch(`/carts/${cartId}/total`);
+        const total = await response.json();
+
+        document.getElementById("cart-total").textContent = total;
+    } catch (error) {
+        console.error("Failed to load total", error);
     }
 }
 

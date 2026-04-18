@@ -1,5 +1,7 @@
 package com.example.telstore.service;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Service;
 
 import com.example.telstore.exception.CartItemNotFoundException;
@@ -19,7 +21,6 @@ import com.example.telstore.repository.ProductRepository;
 public class CartService {
 
     private final CartRepository cartRepository;
-    private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
     private final PlanRepository planRepository;
 
@@ -28,7 +29,6 @@ public class CartService {
                        ProductRepository productRepository,
                        PlanRepository planRepository) {
         this.cartRepository = cartRepository;
-        this.cartItemRepository = cartItemRepository;
         this.productRepository = productRepository;
         this.planRepository = planRepository;
     }
@@ -113,6 +113,31 @@ public class CartService {
             }
             return existingProduct.getId().equals(newProduct.getId());
         }
+
+    // Total calaculation Code :- // Understand this code properly
+    public BigDecimal calculateCartTotal(Long cartId) {
+    Cart cart = getCartById(cartId);
+
+    BigDecimal total = BigDecimal.ZERO;
+
+    for (CartItem item : cart.getItems()) {
+        BigDecimal itemTotal = BigDecimal.ZERO;
+
+        if (item.getProduct() != null) {
+            BigDecimal productTotal = item.getProduct().getPrice()
+                    .multiply(BigDecimal.valueOf(item.getQuantity()));
+            itemTotal = itemTotal.add(productTotal);
+        }
+
+        if (item.getPlan() != null) {
+            itemTotal = itemTotal.add(item.getPlan().getMonthlyPrice());
+        }
+
+        total = total.add(itemTotal);
+    }
+
+    return total;
+}
 
     
 

@@ -1,6 +1,6 @@
 package com.example.telstore.dto;
 // DTO - Data Transfer Object ( A class used to tranfer data between client and server), 
-// It act as we decided what data user is allowed to send instead of exposing the whole thing 
+// It act as a middle man we decided what data user is allowed to send instead of exposing the whole thing 
 public class AddCartItemRequest {
 
     private Long productId;

@@ -34,7 +34,6 @@ async function loadProducts() {
                         <p class="card-text">${product.description}</p>
                         <p><strong>Category:</strong> ${product.category}</p>
                         <p><strong>Price:</strong> $${product.price}</p>
-                        <p><strong>Stock:</strong> ${product.stockQuantity}</p>
 
                         <button class="btn btn-primary mb-3" onclick="addProductToCart(${product.id})">
                             Add Product Only
