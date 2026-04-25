@@ -28,6 +28,7 @@ async function loadProducts() {
 
             card.innerHTML = `
                 <div class="card shadow-sm h-100">
+                <img src="${product.imageUrl}" class="card-img-top product-img" alt="${product.name}">
                     <div class="card-body">
                         <h5 class="card-title">${product.name}</h5>
                         <h6 class="text-muted">${product.brand}</h6>
